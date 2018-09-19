@@ -1,0 +1,26 @@
+{
+  "name": "RSS reader",
+  "version": "0.1",
+  "description": "RSS reader chrome extension",
+  "permissions": ["declarativeContent", "storage"],
+  "background": {
+    "scripts": ["app/index.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "app/index.html",
+    "default_icon": {
+      "16": "app/assets/images/cool-rss-16.png",
+      "32": "app/assets/images/cool-rss-32.png",
+      "48": "app/assets/images/cool-rss-48.png",
+      "128": "app/assets/images/cool-rss-128.png"
+    }
+  },
+  "icons": {
+    "16": "app/assets/images/cool-rss-16.png",
+    "32": "app/assets/images/cool-rss-32.png",
+    "48": "app/assets/images/cool-rss-48.png",
+    "128": "app/assets/images/cool-rss-128.png"
+  },
+  "manifest_version": 2
+}
