@@ -7,17 +7,24 @@ var getRssFeed = url => {
   xmlhttp.onreadystatechange = function() {
     let isReady = this.readyState == 4 && this.status == 200
     if (isReady) {
-      // console.log(this.responseText)
-      showRssFeed(this.responseText)
+      doc = stringToXml(this.responseText)
+      showRssFeed(doc)
     }
   }
   xmlhttp.open('GET', url)
   xmlhttp.send()
 }
 
-var showRssFeed = (xmlString) => {
+var stringToXml = xmlString => {
   parser = new DOMParser()
-  doc = parser.parseFromString(xmlString, 'text/xml')
+  return parser.parseFromString(xmlString, 'text/xml')
+}
+
+var showRssFeed = doc => {
+  titleNode = doc.querySelector('channel').querySelector('title')
+  title = titleNode.textContent
+  showTitle(title)
+
   items = doc.querySelectorAll('item')
   items.forEach(item => {
     let title = item.querySelector('title').textContent
@@ -29,15 +36,23 @@ var showRssFeed = (xmlString) => {
 }
 
 var pushItemNode = (title, description, link) => {
+  linkNode = document.createElement('a')
+  linkNode.setAttribute('href', link)
+  linkNode.setAttribute('target', '_blank')
   titleNode = document.createElement('h3')
+  linkNode.appendChild(titleNode)
   titleNode.textContent = title
   descriptionNode = document.createElement('p')
   descriptionNode.textContent = description
 
   itemNode = document.createElement('div')
   itemNode.classList.add('item')
-  itemNode.appendChild(titleNode)
+  itemNode.appendChild(linkNode)
   itemNode.appendChild(descriptionNode)
 
   document.getElementById('feed').appendChild(itemNode)
+}
+
+var showTitle = title => {
+  document.getElementById('title').textContent = title
 }
