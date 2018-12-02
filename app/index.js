@@ -1,18 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
-  getRssFeed('http://rss.nytimes.com/services/xml/rss/nyt/Americas.xml')
+  let rssDocument = getRssFeed('http://rss.nytimes.com/services/xml/rss/nyt/Americas.xml')
+  showRssFeed(rssDocument)
 })
 
 var getRssFeed = url => {
-  let xmlhttp = new XMLHttpRequest()
-  xmlhttp.onreadystatechange = function() {
-    let isReady = this.readyState == 4 && this.status == 200
-    if (isReady) {
-      doc = stringToXml(this.responseText)
-      showRssFeed(doc)
-    }
+  let request = new XMLHttpRequest()
+  request.open('GET', url, false)
+  request.send(null)
+  if (request.status === 200) {
+    return stringToXml(request.responseText)
+  } else {
+    return new Error(`Failure. HTTP Status: ${request.status}`)
   }
-  xmlhttp.open('GET', url)
-  xmlhttp.send()
 }
 
 var stringToXml = xmlString => {
