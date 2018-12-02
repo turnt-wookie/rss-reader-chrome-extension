@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   let rssDocument = getRssFeed('http://rss.nytimes.com/services/xml/rss/nyt/Americas.xml')
+  let rssJson = rssNewsToJson(rssDocument)
   showRssFeed(rssDocument)
 })
 
@@ -17,6 +18,26 @@ var getRssFeed = url => {
 var stringToXml = xmlString => {
   parser = new DOMParser()
   return parser.parseFromString(xmlString, 'text/xml')
+}
+
+var rssNewsToJson = doc => {
+  let title = doc.querySelector('channel')
+                 .querySelector('title')
+                 .textContent
+
+  let news = [...doc.querySelectorAll('item')].map(item => {
+    return({
+      title: item.querySelector('title').textContent,
+      link: item.querySelector('link').textContent,
+      description: item.querySelector('description').textContent,
+      publishedAt: item.querySelector('pubDate').textContent
+    })
+  })
+
+  return({
+    title: title,
+    news: news
+  })
 }
 
 var showRssFeed = doc => {
