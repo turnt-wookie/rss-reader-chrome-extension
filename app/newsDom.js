@@ -16,6 +16,7 @@ class NewsDom {
 
   _insertNews() {
     let _this = this
+    this.insertNewIntoBD()
     this.newsObject.news.forEach(item => {
       _this._pushItemNode(item.title, item.description, item.link)
     })
@@ -30,12 +31,33 @@ class NewsDom {
     titleNode.textContent = title
     let descriptionNode = document.createElement('p')
     descriptionNode.textContent = description
-  
+
     let itemNode = document.createElement('div')
     itemNode.classList.add('item')
     itemNode.appendChild(linkNode)
     itemNode.appendChild(descriptionNode)
-  
+
     document.getElementById('feed').appendChild(itemNode)
+  }
+
+  insertNewIntoBD(nytNew) {
+      let mockNew = {
+        "title": "Brazil’s New Leader Wants to Ease Gun Laws. Supporters Are Ready, and Training.",
+        "link": "https://www.nytimes.com/2018/12/01/world/americas/brazil-gun-laws-rights-bolsonaro.html?partner=rss&emc=rss",
+        "description": "Natalia Ortega received instruction from a coach at a shooting club in São Paulo, Brazil, this month.",
+        "publishedAt": "Sat, 01 Dec 2018 13:48:09 GMT"
+      }
+
+      let request = new XMLHttpRequest();
+      request.open('POST', 'http://localhost:8080/backend/backend.php', false);
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      request.send(mockNew);
+      if (request.status === 200) {
+        console.log('success')
+        console.log(request.response)
+      } else {
+        // return new Error(`Failure. HTTP Status: ${request.status}`)
+        console.error("error: ", request.status)
+      }
   }
 }
