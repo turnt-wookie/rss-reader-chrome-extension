@@ -1,5 +1,7 @@
 class NewsDom {
   constructor(newsObject) {
+    // No utilizar el objeto que se pasa
+    // Obtener las 10 primeras noticias de la base de datos
     this.newsObject = newsObject
   }
 

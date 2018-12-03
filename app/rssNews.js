@@ -3,6 +3,9 @@ class RssNews {
     this.url = url
     this.document = this._fetchRssFeed()
     this.json = this._rssNewsToJson()
+    // Fetch a la base de datos
+    // Checar que elementos no se han agregado (find)
+    // Insertar nuevos elementos
   }
 
   _fetchRssFeed() {
@@ -41,4 +44,3 @@ class RssNews {
     return parser.parseFromString(xmlString, 'text/xml')
   }
 }
-
