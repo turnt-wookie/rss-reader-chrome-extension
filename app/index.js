@@ -1,23 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  let rssDocument = getRssFeed('http://rss.nytimes.com/services/xml/rss/nyt/Americas.xml')
-  showRssFeed(rssDocument)
+  let news = new RssNews('http://rss.nytimes.com/services/xml/rss/nyt/Americas.xml')
+  showRssFeed(news.doc)
 })
-
-var getRssFeed = url => {
-  let request = new XMLHttpRequest()
-  request.open('GET', url, false)
-  request.send(null)
-  if (request.status === 200) {
-    return stringToXml(request.responseText)
-  } else {
-    return new Error(`Failure. HTTP Status: ${request.status}`)
-  }
-}
-
-var stringToXml = xmlString => {
-  parser = new DOMParser()
-  return parser.parseFromString(xmlString, 'text/xml')
-}
 
 var showRssFeed = doc => {
   titleNode = doc.querySelector('channel').querySelector('title')
