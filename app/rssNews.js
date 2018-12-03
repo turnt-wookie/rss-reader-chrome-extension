@@ -1,7 +1,7 @@
 class RssNews {
   constructor(url) {
     this.url = url
-    this.doc = this._fetchRssFeed()
+    this.document = this._fetchRssFeed()
     this.json = this._rssNewsToJson()
   }
 
@@ -17,11 +17,11 @@ class RssNews {
   }
 
   _rssNewsToJson() {
-    let title = this.doc.querySelector('channel')
+    let title = this.document.querySelector('channel')
                         .querySelector('title')
                         .textContent
 
-    let news = [...this.doc.querySelectorAll('item')].map(item => {
+    let news = [...this.document.querySelectorAll('item')].map(item => {
       return({
         title: item.querySelector('title').textContent,
         link: item.querySelector('link').textContent,

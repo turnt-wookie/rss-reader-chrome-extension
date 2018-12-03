@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   let news = new RssNews('http://rss.nytimes.com/services/xml/rss/nyt/Americas.xml')
-  showRssFeed(news.doc)
+  let newsDom = new NewsDom(news.json)
+  newsDom.render()
 })
 
 var showRssFeed = doc => {
