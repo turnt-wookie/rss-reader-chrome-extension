@@ -16,8 +16,8 @@ class NewsDom {
 
   _insertNews() {
     let _this = this
-    this.insertNewIntoBD()
-    this.newsObject.news.forEach(item => {
+    let nyt_news = this._getNews();
+    nyt_news.forEach(item => {
       _this._pushItemNode(item.title, item.description, item.link)
     })
   }
@@ -40,24 +40,15 @@ class NewsDom {
     document.getElementById('feed').appendChild(itemNode)
   }
 
-  insertNewIntoBD(nytNew) {
-      let mockNew = {
-        "title": "Brazil’s New Leader Wants to Ease Gun Laws. Supporters Are Ready, and Training.",
-        "link": "https://www.nytimes.com/2018/12/01/world/americas/brazil-gun-laws-rights-bolsonaro.html?partner=rss&emc=rss",
-        "description": "Natalia Ortega received instruction from a coach at a shooting club in São Paulo, Brazil, this month.",
-        "publishedAt": "Sat, 01 Dec 2018 13:48:09 GMT"
-      }
-
-      let request = new XMLHttpRequest();
-      request.open('POST', 'http://localhost:8080/backend/backend.php', false);
-      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      request.send(mockNew);
+  _getNews() {
+      let url = 'http://localhost:8080/backend/get.php'
+      let request = new XMLHttpRequest()
+      request.open('GET', url, false)
+      request.send(null)
       if (request.status === 200) {
-        console.log('success')
-        console.log(request.response)
+        return request.responseText
       } else {
-        // return new Error(`Failure. HTTP Status: ${request.status}`)
-        console.error("error: ", request.status)
+        return new Error(`Failure. HTTP Status: ${request.status}`)
       }
   }
 }
