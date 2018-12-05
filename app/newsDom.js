@@ -11,6 +11,15 @@ class NewsDom {
     this._showEnjoyMessage()
   }
 
+  find(data) {
+    let _this = this
+    this._cleanFeedDOM()
+    data.forEach(item => {
+      _this._pushItemNode(item.title, item.description, item.link)
+    })
+    this._showEnjoyMessage()
+  }
+
   _insertTitle() {
     document.getElementById('title').textContent = this.newsObject.title
   }
@@ -64,6 +73,16 @@ class NewsDom {
     enjoyMessageElement.classList = [ 'show' ]
     setTimeout(() => {
       enjoyMessageElement.classList = []
+    }, 1000)
+  }
+
+  _showFoundMessage() {
+    let enjoyMessageElement = document.getElementById('enjoy-message')
+    enjoyMessageElement.innerHtml = 'I found this: '
+    enjoyMessageElement.classList = [ 'show' ]
+    setTimeout(() => {
+      enjoyMessageElement.classList = []
+      enjoyMessageElement.innerHTML = 'Enjoy the fresh news :)'
     }, 1000)
   }
 }

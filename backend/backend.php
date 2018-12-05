@@ -3,7 +3,6 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 
 $data = json_decode(file_get_contents('php://input', true));
-// var_dump($data);
 $title = $data->title;
 $link = $data->link;
 $description = $data->description;
