@@ -47,8 +47,8 @@ class RssNews {
 
   _insertNewIntoBD(nytNew) {
       let request = new XMLHttpRequest();
-      request.open('POST', 'http://localhost:8080/backend/backend.php', false);
-      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      request.open('POST', 'http://localhost:8080/backend/backend.php', false)
+      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
       // console.log(JSON.stringify(mockNew))
       request.send(JSON.stringify(nytNew))
       if (request.status === 200) {
