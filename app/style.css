@@ -1,3 +1,12 @@
 body {
   width: 250px;
 }
+
+#enjoy-message {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.show {
+  opacity: 1 !important;
+}

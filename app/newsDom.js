@@ -6,8 +6,10 @@ class NewsDom {
   }
 
   render() {
+    this._cleanFeedDOM()
     this._insertTitle()
     this._insertNews()
+    this._showEnjoyMessage()
   }
 
   _insertTitle() {
@@ -50,5 +52,17 @@ class NewsDom {
     } else {
       return new Error(`Failure. HTTP Status: ${request.status}`)
     }
+  }
+
+  _cleanFeedDOM() {
+    document.getElementById('feed').innerHTML = null
+  }
+
+  _showEnjoyMessage() {
+    let enjoyMessageElement = document.getElementById('enjoy-message')
+    enjoyMessageElement.classList = [ 'show' ]
+    setTimeout(() => {
+      enjoyMessageElement.classList = []
+    }, 1000)
   }
 }
