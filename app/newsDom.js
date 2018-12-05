@@ -9,6 +9,7 @@ class NewsDom {
     this._insertTitle()
     this._insertNews(page)
     this._showEnjoyMessage()
+    this._showPageIndicator()
   }
 
   find(data) {
@@ -57,7 +58,7 @@ class NewsDom {
     request.send(null)
     if (request.status === 200) {
       let response = JSON.parse(request.responseText)
-      this.currentPage = response.page
+      this.currentPage = page
       return response.data
     } else {
       return new Error(`Failure. HTTP Status: ${request.status}`)
@@ -84,5 +85,17 @@ class NewsDom {
       enjoyMessageElement.classList = []
       enjoyMessageElement.innerHTML = 'Enjoy the fresh news :)'
     }, 1000)
+  }
+
+  _showPageIndicator() {
+    let _this = this;
+    [...document.getElementsByClassName('page-btn')].forEach(button => {
+      let page = button.getAttribute('data-page')
+      if (page == _this.currentPage) {
+        button.classList = 'page-btn current-page'
+      } else {
+        button.classList = 'page-btn'
+      }
+    })
   }
 }

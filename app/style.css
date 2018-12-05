@@ -19,3 +19,7 @@ body {
 .pagination {
   margin-top: 10px;
 }
+
+.current-page {
+  color: red;
+}
