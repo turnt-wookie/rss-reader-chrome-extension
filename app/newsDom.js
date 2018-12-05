@@ -1,14 +1,13 @@
 class NewsDom {
   constructor(newsObject) {
-    // No utilizar el objeto que se pasa
-    // Obtener las 10 primeras noticias de la base de datos
     this.newsObject = newsObject
+    this.currentPage = 0
   }
 
-  render() {
+  render(page = 1) {
     this._cleanFeedDOM()
     this._insertTitle()
-    this._insertNews()
+    this._insertNews(page)
     this._showEnjoyMessage()
   }
 
@@ -16,9 +15,9 @@ class NewsDom {
     document.getElementById('title').textContent = this.newsObject.title
   }
 
-  _insertNews() {
+  _insertNews(page = 1) {
     let _this = this
-    let nyt_news = JSON.parse(this._getNews());
+    let nyt_news = this._getNews(page)
     nyt_news.forEach(item => {
       _this._pushItemNode(item.title, item.description, item.link)
     })
@@ -42,13 +41,15 @@ class NewsDom {
     document.getElementById('feed').appendChild(itemNode)
   }
 
-  _getNews() {
-    let url = 'http://localhost:8080/backend/page_1.php'
+  _getNews(page = 1) {
+    let url = `http://localhost:8080/backend/paginated_get.php?page=${page}`
     let request = new XMLHttpRequest()
     request.open('GET', url, false)
     request.send(null)
     if (request.status === 200) {
-      return request.responseText
+      let response = JSON.parse(request.responseText)
+      this.currentPage = response.page
+      return response.data
     } else {
       return new Error(`Failure. HTTP Status: ${request.status}`)
     }

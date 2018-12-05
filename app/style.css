@@ -5,8 +5,17 @@ body {
 #enjoy-message {
   opacity: 0;
   transition: opacity 1s ease-in-out;
+  color: green;
 }
 
 .show {
   opacity: 1 !important;
+}
+
+#refresh-btn {
+  margin-bottom: 10px;
+}
+
+.pagination {
+  margin-top: 10px;
 }
