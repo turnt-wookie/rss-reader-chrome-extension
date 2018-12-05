@@ -5,7 +5,7 @@ class RssNews {
     this.json = this._rssNewsToJson()
 
     this.json.news.forEach(_new => {
-        this._insertNewIntoBD(_new);
+      this._insertNewIntoBD(_new);
     })
   }
 
@@ -46,17 +46,13 @@ class RssNews {
   }
 
   _insertNewIntoBD(nytNew) {
-      let request = new XMLHttpRequest();
-      request.open('POST', 'http://localhost:8080/backend/backend.php', false)
-      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
-      // console.log(JSON.stringify(mockNew))
-      request.send(JSON.stringify(nytNew))
-      if (request.status === 200) {
-        console.log('success')
-        console.log(request.response)
-      } else {
-        // return new Error(`Failure. HTTP Status: ${request.status}`)
-        console.error("error: ", request.status)
-      }
+    let request = new XMLHttpRequest();
+    request.open('POST', 'http://localhost:8080/backend/backend.php', false)
+    request.setRequestHeader('Content-Type', 'application/json;charset=ISO-8859')
+    request.send(JSON.stringify(nytNew))
+    if (request.status === 200) {
+    } else {
+      console.error("error: ", request.status)
+    }
   }
 }

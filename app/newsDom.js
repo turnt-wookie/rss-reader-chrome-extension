@@ -16,7 +16,7 @@ class NewsDom {
 
   _insertNews() {
     let _this = this
-    let nyt_news = this._getNews();
+    let nyt_news = JSON.parse(this._getNews());
     nyt_news.forEach(item => {
       _this._pushItemNode(item.title, item.description, item.link)
     })
@@ -41,14 +41,14 @@ class NewsDom {
   }
 
   _getNews() {
-      let url = 'http://localhost:8080/backend/get.php'
-      let request = new XMLHttpRequest()
-      request.open('GET', url, false)
-      request.send(null)
-      if (request.status === 200) {
-        return request.responseText
-      } else {
-        return new Error(`Failure. HTTP Status: ${request.status}`)
-      }
+    let url = 'http://localhost:8080/backend/page_1.php'
+    let request = new XMLHttpRequest()
+    request.open('GET', url, false)
+    request.send(null)
+    if (request.status === 200) {
+      return request.responseText
+    } else {
+      return new Error(`Failure. HTTP Status: ${request.status}`)
+    }
   }
 }
